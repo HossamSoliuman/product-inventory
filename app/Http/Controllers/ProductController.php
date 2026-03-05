@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\StockThresholdReached;
 use App\Http\Requests\AdjustStockRequest;
 use App\Http\Requests\ListProductsRequest;
 use App\Http\Requests\StoreProductRequest;
@@ -66,6 +67,10 @@ class ProductController extends LichtBaseController
             $product->increment('stock_quantity', $request->integer('quantity'));
         }
         $product->refresh();
+        if ($product->stock_quantity <= $product->low_stock_threshold) {
+            event(new StockThresholdReached($product));
+        }
+
         return $this->apiResponse(data: ProductResource::make($product));
     }
 
