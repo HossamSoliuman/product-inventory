@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('update', [AuthenticationController::class, 'update']);
     });
 });
-Route::prefix('products')->name('products.')->group(function () {
+Route::prefix('products')->name('products.')->middleware('throttle:10,1')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('index');
     Route::post('/', [ProductController::class, 'store'])->name('store');
     Route::get('/low-stock', [ProductController::class, 'lowStock'])->name('low-stock');
