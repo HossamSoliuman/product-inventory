@@ -16,6 +16,7 @@ return [
     */
 
     'default' => env('CACHE_DRIVER', 'file'),
+    'product_ttl'=>env('product_ttl',60),
 
     /*
     |--------------------------------------------------------------------------
