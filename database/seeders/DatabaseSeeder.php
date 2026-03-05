@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@acms.com',
             'role' => 'admin',
         ]);
+
+        $this->call(ProductSeeder::class);
     }
 }
